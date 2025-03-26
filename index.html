@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Classification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:rgb(145, 87, 40);
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .upload-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .upload-form input[type="file"] {
+            display: none;
+        }
+        .upload-form label {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s ease;
+        }
+        .upload-form label:hover {
+            background:rgb(134, 49, 101);
+        }
+        .upload-form button {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-left: 10px;
+            transition: background 0.3s ease;
+        }
+        .upload-form button:hover {
+            background:rgb(57, 49, 173);
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .result img {
+            max-width: 300px;
+            border-radius: 10px;
+        }
+        .result strong {
+            color: #007bff;
+        }
+        .history-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .history-link a {
+            background: #ffc107;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background 0.3s ease;
+        }
+        .history-link a:hover {
+            background:rgb(138, 54, 54);
+        }
+    </style>
+</head>
+<body>
+    <h1>Animal Classification</h1>
+    <form class="upload-form" method="POST" enctype="multipart/form-data">
+        <label for="file-upload">📁Choose Image</label>
+        <input id="file-upload" type="file" name="file" accept="image/*" required>
+        <button type="submit">🙄Upload and Predict</button>
+    </form>
+
+    {% if show_result %}
+        <div class="result">
+            <img src="{{ image.image_url }}" alt="Uploaded Image">
+            <p>Predicted Animal: <strong>{{ image.predicted_class }}</strong></p>
+            <p>Confidence: <strong>{{ image.confidence|round(2) }}%</strong></p>
+        </div>
+    {% endif %}
+
+    <div class="history-link">
+        <a href="{{ url_for('history') }}">⏳View History</a>
+    </div>
+
+    <script>
+        // Display the selected file name
+        document.getElementById('file-upload').addEventListener('change', function (e) {
+            const fileName = e.target.files[0].name;
+            document.querySelector('.upload-form label').textContent = fileName;
+        });
+    </script>
+</body>
+</html>
