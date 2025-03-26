@@ -16,14 +16,23 @@ Delete all images at once.
 
 animal_classification_app/
 ├── static/
+
 │   ├── uploads/          # Folder to store uploaded images
+
 │   └── styles.css        # Optional: For custom CSS
+
 ├── templates/
+
 │   ├── index.html        # Home page for uploading and prediction
+
 │   └── history.html      # History page to view and delete images
+
 ├── app.py                # Flask application
+
 ├── model.h5              # Your MobileNetV2 model
+
 └── requirements.txt      # Python dependencies
+
 
 
 Features
