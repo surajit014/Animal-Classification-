@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .image-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .image-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 200px;
+            text-align: center;
+            padding: 10px;
+        }
+        .image-card img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .image-card .result {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #333;
+        }
+        .image-card .result strong {
+            color: #007bff;
+        }
+        .delete-button {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        .delete-button:hover {
+            background: #c82333;
+        }
+        .delete-all-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .delete-all-button a {
+            background: #dc3545;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background 0.3s ease;
+        }
+        .delete-all-button a:hover {
+            background: #c82333;
+        }
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-button a {
+            background: #6c757d;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background 0.3s ease;
+        }
+        .back-button a:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <h1>History</h1>
+    <div class="image-list">
+        {% for index, image in enumerate(images) %}
+            <div class="image-card">
+                <img src="{{ image.image_url }}" alt="Uploaded Image">
+                <div class="result">
+                    Predicted Animal: <strong>{{ image.predicted_class }}</strong><br>
+                    Confidence: <strong>{{ image.confidence|round(2) }}%</strong>
+                </div>
+                <button class="delete-button" onclick="window.location.href='{{ url_for('delete_image', index=index) }}'">Delete</button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="delete-all-button">
+        <a href="{{ url_for('delete_all') }}">✔Delete All</a>
+    </div>
+
+    <div class="back-button">
+        <a href="{{ url_for('index') }}">🔙Back to Home</a>
+    </div>
+</body>
+</html>
